@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -10,8 +11,15 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 
 import StartGame from "./screens/StartGame";
+import Game from "./screens/Game";
 
 export default function App() {
+  const [screen, setScreen] = useState();
+
+  const screenHandler = (number) => {
+    setScreen(number);
+  };
+
   return (
     <LinearGradient colors={["#4e0329", "#ddb52f"]} style={styles.container}>
       <StatusBar style="light" />
@@ -22,7 +30,11 @@ export default function App() {
         imageStyle={styles.backImg}
       >
         <View style={styles.gameContainer}>
-          <StartGame />
+          {screen ? (
+            <Game inputNumber={screen} />
+          ) : (
+            <StartGame sec={screenHandler} />
+          )}
         </View>
       </ImageBackground>
     </LinearGradient>
@@ -35,6 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   gameContainer: {
+    flex: 1,
     marginHorizontal: 35,
     marginTop: 30,
   },

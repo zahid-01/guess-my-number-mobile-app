@@ -4,7 +4,7 @@ import { StyleSheet, View, TextInput, Text, Alert } from "react-native";
 import Card from "../components/UI/Card";
 import PrimaryButton from "../components/PrimaryButton";
 
-const StartGame = () => {
+const StartGame = (props) => {
   const [enteredNumber, setEnteredNumber] = useState("");
 
   const enteredNumberHandler = (number) => {
@@ -19,6 +19,8 @@ const StartGame = () => {
       ]);
       return;
     }
+    //Shift to next screen
+    props.sec(inputNumber);
   };
 
   const resetHandler = () => {
