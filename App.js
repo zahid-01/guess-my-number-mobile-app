@@ -7,37 +7,39 @@ import {
   Button,
   ImageBackground,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 import StartGame from "./screens/StartGame";
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={["#4e0329", "#ddb52f"]} style={styles.container}>
+      <StatusBar style="light" />
       <ImageBackground
         source={require("./assets/background.png")}
-        style={styles.img}
+        style={styles.container}
+        resizeMode="cover"
+        imageStyle={styles.backImg}
       >
         <View style={styles.gameContainer}>
           <StartGame />
         </View>
       </ImageBackground>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 30,
     justifyContent: "flex-start",
+    backgroundColor: "#ddb52f",
   },
   gameContainer: {
-    flex: 1,
     marginHorizontal: 35,
     marginTop: 30,
-    justifyContent: "flex-start",
   },
-  img: {
-    flex: 1,
+  backImg: {
+    opacity: 0.15,
   },
 });

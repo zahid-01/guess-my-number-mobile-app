@@ -22,12 +22,17 @@ const StartGame = () => {
           <Text style={styles.inputTextHeading}>Enter A Number</Text>
           <TextInput
             style={styles.inputNumber}
-            keyboardType="phone-pad"
+            keyboardType="number-pad"
             placeholderTextColor="yellow"
+            maxLength={2}
           />
-          <View style={styles.inputBtn}>
-            <PrimaryButton text="Reset" press={resetHandler} />
-            <PrimaryButton text="Confirm" press={confirmHandler} />
+          <View style={styles.buttonsContainer}>
+            <View style={styles.buttonContainer}>
+              <PrimaryButton text="Reset" press={resetHandler} />
+            </View>
+            <View style={styles.buttonContainer}>
+              <PrimaryButton text="Confirm" press={confirmHandler} />
+            </View>
           </View>
         </Card>
       </View>
@@ -49,22 +54,24 @@ const styles = StyleSheet.create({
   },
   inputNumber: {
     borderBottomWidth: 2,
-    borderBottomColor: "yellow",
+    borderBottomColor: "#ddb52f",
     width: 50,
     height: 50,
-    paddingHorizontal: 20,
     fontWeight: "bold",
-    color: "yellow",
-    fontSize: 20,
+    color: "#ddb52f",
+    fontSize: 32,
+    textAlign: "center",
   },
   inputTextHeading: {
     fontSize: 20,
+    color: "white",
   },
-  inputBtn: {
+  buttonsContainer: {
     marginTop: 20,
     flexDirection: "row",
-    width: "80%",
-    justifyContent: "space-between",
+  },
+  buttonContainer: {
+    flex: 1,
   },
 });
 

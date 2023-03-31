@@ -6,12 +6,13 @@ const Card = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    borderColor: "#963232",
+    borderColor: "#73063c",
     borderWidth: 1,
-    backgroundColor: "#963232",
+    backgroundColor: "#73063c",
     borderRadius: 10,
     alignItems: "center",
     padding: 20,
+    elevation: 10,
   },
 });
 export default Card;
