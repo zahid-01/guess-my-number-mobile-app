@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-start",
-    backgroundColor: "#ddb52f",
   },
   gameContainer: {
     marginHorizontal: 35,
