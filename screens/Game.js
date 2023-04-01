@@ -6,6 +6,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import GuessItem from "../components/UI/GuessItem";
 
 const genRandomNumber = (max, min, exclude) => {
+  if (max === min) return min;
   return Math.trunc(Math.random() * max - min) + min;
 };
 
