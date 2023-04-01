@@ -1,25 +1,37 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, Alert } from "react-native";
 
 import Card from "../components/UI/Card";
 import PrimaryButton from "../components/PrimaryButton";
 import GuessItem from "../components/UI/GuessItem";
 
-const Game = (props) => {
-  const [randomNumber, setRandomNumber] = useState();
-  const [guesses, setGuesses] = useState([
-    { text: randomNumber, key: randomNumber },
-    { text: 3, key: 3 },
-  ]);
-  const [enteredNumber, setEnteredNumber] = useState(props.inputNumber);
+const genRandomNumber = (max, min, exclude) => {
+  return Math.trunc(Math.random() * max - min) + min;
+};
 
-  const guessNumber = () => {
-    setRandomNumber(Math.random(Math.random() * 99));
+let minLimit = 1;
+let maxLimit = 99;
+
+const Game = (props) => {
+  const [guesses, setGuesses] = useState([]);
+
+  const guessNumber = (max, min) => {
+    const rand = genRandomNumber(max, min);
+    if (rand == props.inputNumber)
+      Alert.alert("Congratulations", "You won", [
+        { text: "OK", style: "destructive" },
+      ]);
+    setGuesses((guesses) => [{ text: rand, key: Math.random() }, ...guesses]);
   };
 
   useEffect(() => {
-    setRandomNumber(Math.random(Math.random() * 99));
-  });
+    const rand = genRandomNumber(1, 99);
+    if (rand == props.inputNumber)
+      Alert.alert("Congratulations", "You won", [
+        { text: "OK", style: "destructive" },
+      ]);
+    setGuesses((guesses) => [{ text: rand, key: Math.random() }, ...guesses]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -27,17 +39,17 @@ const Game = (props) => {
 
       <View style={styles.mainView}>
         <View style={styles.computerGuess}>
-          <Text style={styles.randomText}>{randomNumber}</Text>
+          <Text style={styles.randomText}>{guesses[0]?.text}</Text>
         </View>
 
         <Card>
           <Text style={styles.higherLower}>Higher or Lower?</Text>
           <View style={styles.buttonsContainer}>
             <View style={styles.buttonContainer}>
-              <PrimaryButton text={"-"} />
+              <PrimaryButton text={"-"} press={guessNumber} />
             </View>
             <View style={styles.buttonContainer}>
-              <PrimaryButton text={"+"} />
+              <PrimaryButton text={"+"} press={guessNumber} />
             </View>
           </View>
         </Card>
@@ -46,7 +58,9 @@ const Game = (props) => {
       <View style={styles.card}>
         <FlatList
           data={guesses}
-          renderItem={(item) => <GuessItem guess={item.item.text} />}
+          renderItem={(item) => (
+            <GuessItem num={item.index} guess={item.item.text} />
+          )}
         />
       </View>
       {/* </View> */}
@@ -61,6 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   mainView: {
+    flex: 1,
     marginHorizontal: 20,
   },
   heading: {
@@ -95,12 +110,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
   },
-  cardContainer: {
-    // alignItems: "center",
-    // justifyContent: "center",
-    // flexDirection: "row",
-  },
+  cardContainer: {},
   card: {
+    flex: 1,
     justifyContent: "center",
   },
 });

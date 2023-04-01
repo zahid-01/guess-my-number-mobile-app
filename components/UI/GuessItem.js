@@ -1,9 +1,10 @@
 import { Text, View, StyleSheet } from "react-native";
 
 const GuessItem = (props) => {
+  // console.log(props);
   return (
     <View style={styles.card}>
-      <Text style={styles.guessText}>#1</Text>
+      <Text style={styles.guessText}>#{props.num}</Text>
       <Text style={styles.guessText}>Openents Guess: {props.guess}</Text>
     </View>
   );
